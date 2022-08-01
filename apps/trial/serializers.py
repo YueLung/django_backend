@@ -3,10 +3,14 @@ from .models import Product, ProductCategory
 
 
 class ProductSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Product
         # fields = ['id', 'name', 'price', 'photo']
         fields = '__all__'
+        extra_kwargs = {'category': {'required': False},
+                        'name': {'required': False},
+                        'price': {'required': False}}
 
 
 class ProductInfoSerializer(serializers.ModelSerializer):
