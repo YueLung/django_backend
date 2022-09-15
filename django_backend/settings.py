@@ -28,6 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
+# Line bot key
+LINE_CHANNEL_SECRET = env('LINE_CHANNEL_SECRET')
+LINE_CHANNEL_ACCESS_TOKEN = env('LINE_CHANNEL_ACCESS_TOKEN')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -53,7 +57,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # internal apps
-    'apps.trial.apps.TrialConfig'
+    'apps.trial.apps.TrialConfig',
+    'apps.line_bot.apps.LineBotConfig'
 ]
 
 REST_FRAMEWORK = {
