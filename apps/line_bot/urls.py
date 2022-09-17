@@ -4,4 +4,5 @@ from . import views  # Add this line
 
 urlpatterns = [
     path('', views.callback),
+    path('crawlTest', views.crawlTest),
 ]
