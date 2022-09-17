@@ -41,7 +41,7 @@ def callback(request):
 
 # https://www.learncodewithmike.com/2020/02/python-beautifulsoup-web-scraper.html
 def get_stock_infos():
-    stockCode = ['0050', '00878']
+    stockCode = ['0050', '00878', '1584']
     result = []
 
     for code in stockCode:

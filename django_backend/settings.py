@@ -90,6 +90,7 @@ if DEBUG:
 else:
     CORS_ALLOWED_ORIGINS += [
         'https://yuelung-learning.herokuapp.com',
+        'https://invest.cnyes.com'
     ]
 
 
