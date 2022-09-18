@@ -15,6 +15,8 @@ parser = WebhookParser(settings.LINE_CHANNEL_SECRET)
 
 @csrf_exempt
 def callback(request):
+    stockInfos = get_stock_infos()
+
     if request.method == 'POST':
         signature = request.META['HTTP_X_LINE_SIGNATURE']
         body = request.body.decode('utf-8')
@@ -25,8 +27,6 @@ def callback(request):
             return HttpResponseForbidden()
         except LineBotApiError:
             return HttpResponseBadRequest()
-
-        # stockInfos = get_stock_infos()
 
         for event in events:
             if isinstance(event, MessageEvent):
