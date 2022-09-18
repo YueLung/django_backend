@@ -33,7 +33,7 @@ LINE_CHANNEL_SECRET = env('LINE_CHANNEL_SECRET')
 LINE_CHANNEL_ACCESS_TOKEN = env('LINE_CHANNEL_ACCESS_TOKEN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
