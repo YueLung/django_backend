@@ -50,9 +50,9 @@ def get_stock_infos():
         price = soup.select_one('.info-lp').getText()
         result.append(f'{code} price is {price}')
 
-    return result
+    return ',\n'.join(result)
 
 
 def crawlTest(request):
     result = get_stock_infos()
-    return HttpResponse(f"0050 price is {result}")
+    return HttpResponse(result)

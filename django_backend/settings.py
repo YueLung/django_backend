@@ -40,6 +40,7 @@ ALLOWED_HOSTS = []
 if DEBUG == False:
     ALLOWED_HOSTS += [
         'lung.pythonanywhere.com',
+        'yuelung-django.herokuapp.com/'
     ]
 
 
@@ -70,6 +71,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -89,8 +91,7 @@ if DEBUG:
     ]
 else:
     CORS_ALLOWED_ORIGINS += [
-        'https://yuelung-learning.herokuapp.com',
-        'https://invest.cnyes.com'
+        'https://yuelung-learning.herokuapp.com'
     ]
 
 
