@@ -35,12 +35,13 @@ LINE_CHANNEL_ACCESS_TOKEN = env('LINE_CHANNEL_ACCESS_TOKEN')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['yuelung-django.herokuapp.com/']
+ALLOWED_HOSTS = []
 
-# if DEBUG == False:
-#     ALLOWED_HOSTS += [
-#         'yuelung-django.herokuapp.com/'
-#     ]
+if DEBUG == False:
+    ALLOWED_HOSTS += [
+        'lung.pythonanywhere.com',
+        'yuelung-django.herokuapp.com'
+    ]
 
 
 # Application definition
