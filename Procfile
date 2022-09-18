@@ -1,1 +1,1 @@
-web: gunicorn urexpenses.wsgi
+web: gunicorn django_backend.wsgi
