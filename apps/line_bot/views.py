@@ -48,7 +48,9 @@ def get_stock_infos():
         response = requests.get(f'https://invest.cnyes.com/twstock/TWS/{code}')
         soup = BeautifulSoup(response.text, "html.parser")
         price = soup.select_one('.info-lp').getText()
-        result.append(f'{code} price is {price}')
+        changePrice = soup.select_one('.change-net').getText()
+        changepercent = soup.select_one('.change-percent').getText()
+        result.append(f'{code} price is {price} {changePrice} {changepercent}')
 
     return ',\n'.join(result)
 
