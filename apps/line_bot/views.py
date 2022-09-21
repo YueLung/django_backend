@@ -37,7 +37,8 @@ def callback(request):
                     stockInfos = get_stock_infos(
                         ['2330', '0050', '00878', '1584'])
                 else:
-                    stockInfos = get_stock_infos(['2330', '1584'])
+                    stockInfos = get_stock_infos(
+                        ['2330', '1584', '2345', '2377', '00642U', '00635U'])
 
                 line_bot_api.reply_message(
                     event.reply_token, TextSendMessage(stockInfos))
@@ -57,7 +58,9 @@ def get_stock_infos(stockCodes):
         price = soup.select_one('.info-lp').getText()
         changePrice = soup.select_one('.change-net').getText()
         changepercent = soup.select_one('.change-percent').getText()
-        result.append(f'{code}: {price}  {changePrice}  {changepercent}')
+        name = soup.select_one('.header_second').getText()
+        result.append(
+            f'{code} {name}: {price}  {changePrice}  {changepercent}')
 
     return ',\n'.join(result)
 
