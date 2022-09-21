@@ -33,15 +33,16 @@ def callback(request):
             if isinstance(event, MessageEvent):
                 stockInfos = 'error'
                 receive_msg = event.message.text
-                print(receive_msg)
-                if receive_msg in {'qq', 'QQ'}:
-                    stockInfos = get_stock_infos(
-                        ['2330', '0050', '00878', '1584'])
-                else:
-                    stockInfos = get_stock_infos(['2330', '1584'])
+                stockInfos = get_stock_infos(
+                    ['2330', '0050', '00878', '1584'])
+                # if receive_msg in {'qq', 'QQ'}:
+                #     stockInfos = get_stock_infos(
+                #         ['2330', '0050', '00878', '1584'])
+                # else:
+                #     stockInfos = get_stock_infos(['2330', '1584'])
 
                 line_bot_api.reply_message(
-                    event.reply_token, TextSendMessage(stockInfos))
+                    event.reply_token, TextSendMessage(stockInfos + type(receive_msg)))
         return HttpResponse()
 
     else:
