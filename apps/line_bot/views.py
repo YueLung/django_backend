@@ -42,7 +42,7 @@ def callback(request):
                 #     stockInfos = get_stock_infos(['2330', '1584'])
 
                 line_bot_api.reply_message(
-                    event.reply_token, TextSendMessage(stockInfos + type(receive_msg)))
+                    event.reply_token, TextSendMessage(stockInfos))
         return HttpResponse()
 
     else:
