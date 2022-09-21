@@ -4,5 +4,6 @@ from . import views  # Add this line
 
 urlpatterns = [
     path('', views.callback),
-    path('crawlTest', views.crawlTest),
+    path('crawl-stock', views.crawl_stock),
+    path('exchage-rate', views.crawl_exchage_rate),
 ]
