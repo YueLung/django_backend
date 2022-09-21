@@ -80,7 +80,7 @@ def get_exchage_rate():
     response = requests.post(
         f'https://portal.sw.nat.gov.tw/APGQO/GC331!query?formBean.year={year}&formBean.mon={month}').json()
 
-    cny_list = [x for x in response['data'] if x['CRRN_CD'] == 'CNY']
+    cny_list = [x for x in response['data'] if x['CRRN_CD'] in {'CNY', 'USD'}]
 
     result = []
     for info in cny_list:
