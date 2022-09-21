@@ -30,9 +30,15 @@ def callback(request):
 
         for event in events:
             if isinstance(event, MessageEvent):
+                stockInfos = None
+                if event.message.text in {'qq', 'QQ'}:
+                    stockInfos = get_stock_infos(
+                        ['2330', '0050', '00878', '1584'])
+                else:
+                    stockInfos = get_stock_infos(['2330', '1584'])
+
                 line_bot_api.reply_message(
                     event.reply_token, TextSendMessage(stockInfos))
-
         return HttpResponse()
 
     else:
@@ -40,17 +46,16 @@ def callback(request):
 
 
 # https://www.learncodewithmike.com/2020/02/python-beautifulsoup-web-scraper.html
-def get_stock_infos():
-    stockCode = ['0050', '00878', '1584']
+def get_stock_infos(stockCodes):
     result = []
 
-    for code in stockCode:
+    for code in stockCodes:
         response = requests.get(f'https://invest.cnyes.com/twstock/TWS/{code}')
         soup = BeautifulSoup(response.text, "html.parser")
         price = soup.select_one('.info-lp').getText()
         changePrice = soup.select_one('.change-net').getText()
         changepercent = soup.select_one('.change-percent').getText()
-        result.append(f'{code} price is {price} {changePrice} {changepercent}')
+        result.append(f'{code}: {price}  {changePrice}  {changepercent}')
 
     return ',\n'.join(result)
 
