@@ -27,19 +27,17 @@ def callback(request):
         except LineBotApiError:
             return HttpResponseBadRequest()
 
-        stockInfos = get_stock_infos()
-
         for event in events:
             if isinstance(event, MessageEvent):
-                # stockInfos = 'error'
-                # receive_msg = event.message.text
+                stockInfos = None
+                receive_msg = event.message.text
                 stockInfos = get_stock_infos(
                     ['2330', '0050', '00878', '1584'])
-                # if receive_msg in {'qq', 'QQ'}:
-                #     stockInfos = get_stock_infos(
-                #         ['2330', '0050', '00878', '1584'])
-                # else:
-                #     stockInfos = get_stock_infos(['2330', '1584'])
+                if receive_msg in {'q', 'Q'}:
+                    stockInfos = get_stock_infos(
+                        ['2330', '0050', '00878', '1584'])
+                else:
+                    stockInfos = get_stock_infos(['2330', '1584'])
 
                 line_bot_api.reply_message(
                     event.reply_token, TextSendMessage(stockInfos))
