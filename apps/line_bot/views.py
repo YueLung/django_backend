@@ -31,7 +31,7 @@ def callback(request):
 
         for event in events:
             if isinstance(event, MessageEvent):
-                stockInfos = 'error'
+                # stockInfos = 'error'
                 receive_msg = event.message.text
                 stockInfos = get_stock_infos(
                     ['2330', '0050', '00878', '1584'])
