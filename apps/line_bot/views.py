@@ -35,7 +35,7 @@ def callback(request):
                     ['2330', '0050', '00878', '1584'])
                 if receive_msg in {'q', 'Q'}:
                     stockInfos = get_stock_infos(
-                        ['2330', '0050', '00878', '1584'])
+                        ['2330', '0050', '00878', '1584'], Fale)
                 else:
                     stockInfos = get_stock_infos(
                         ['2330', '1584', '2345', '2377', '00642U', '00635U'])
@@ -49,7 +49,7 @@ def callback(request):
 
 
 # https://www.learncodewithmike.com/2020/02/python-beautifulsoup-web-scraper.html
-def get_stock_infos(stockCodes):
+def get_stock_infos(stockCodes, isAddName=True):
     result = []
 
     for code in stockCodes:
@@ -59,12 +59,16 @@ def get_stock_infos(stockCodes):
         changePrice = soup.select_one('.change-net').getText()
         changepercent = soup.select_one('.change-percent').getText()
         name = soup.select_one('.header_second').getText()
-        result.append(
-            f'{code} {name}: {price}  {changePrice}  {changepercent}')
+        if isAddName:
+            result.append(
+                f'{code} {name}: {price}  {changePrice}  {changepercent}')
+        else:
+            result.append(
+                f'{code}: {price}  {changePrice}  {changepercent}')
 
     return ',\n'.join(result)
 
 
 def crawlTest(request):
-    result = get_stock_infos(['2330', '0050', '00878', '1584'])
+    result = get_stock_infos(['2330', '0050', '00878', '1584'], False)
     return HttpResponse(result)
