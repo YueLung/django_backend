@@ -1,3 +1,4 @@
+from cmath import log
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
@@ -30,8 +31,10 @@ def callback(request):
 
         for event in events:
             if isinstance(event, MessageEvent):
-                stockInfos = None
-                if event.message.text in {'qq', 'QQ'}:
+                stockInfos = 'error'
+                receive_msg = event.message.text
+                print(receive_msg)
+                if receive_msg in {'qq', 'QQ'}:
                     stockInfos = get_stock_infos(
                         ['2330', '0050', '00878', '1584'])
                 else:
@@ -61,5 +64,5 @@ def get_stock_infos(stockCodes):
 
 
 def crawlTest(request):
-    result = get_stock_infos()
+    result = get_stock_infos(['2330', '0050', '00878', '1584'])
     return HttpResponse(result)
