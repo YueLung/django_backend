@@ -59,7 +59,7 @@ INSTALLED_APPS = [
 
     # internal apps
     'apps.trial.apps.TrialConfig',
-    'apps.line_bot.apps.LineBotConfig'
+    'apps.line.apps.LineBotConfig'
 ]
 
 REST_FRAMEWORK = {
