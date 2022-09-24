@@ -25,12 +25,24 @@ def crawl_stock_info(stockCodes, isAddName=True):
 
 
 def crawl_exchage_rate():
-    now = datetime.datetime.now()
-    year = str(now.year)
-    month = '{:02d}'.format(now.month)
+    response = requests.get('https://portal.sw.nat.gov.tw/APGQO/GC331')
+    soup = BeautifulSoup(response.text, "html.parser")
+    yearSelected = soup.select_one('#yearList').find(
+        attrs={"selected": "selected"}).getText()
+    monthSelected = soup.select_one('#monList').find(
+        attrs={"selected": "selected"}).getText()
+    tenDaySelected = soup.select_one('#tenDayList').find(
+        attrs={"selected": "selected"})['value']
 
-    response = requests.post(
-        f'https://portal.sw.nat.gov.tw/APGQO/GC331!query?formBean.year={year}&formBean.mon={month}').json()
+    # print(yearSelected, monthSelected, tenDaySelected)
+
+    # now = datetime.datetime.now()
+    # year = str(now.year)
+    # month = '{:02d}'.format(now.month)
+
+    req_url = f'https://portal.sw.nat.gov.tw/APGQO/GC331!query?formBean.year={yearSelected}&formBean.mon={monthSelected}&formBean.tenDay={tenDaySelected}'
+    # print(req_url)
+    response = requests.post(req_url).json()
 
     cny_list = [x for x in response['data'] if x['CRRN_CD'] in {'CNY', 'USD'}]
 
