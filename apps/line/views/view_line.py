@@ -44,7 +44,7 @@ def bot_reply_message(request):
                     response_msg = crawl_stock_info(
                         ['2330', '0050', '00878', '1584'], False)
                 elif receive_msg == 'e':
-                    response_msg = crawl_exchage_rate()
+                    response_msg = crawl_exchage_rate({'CNY', 'USD'})
                 else:
                     response_msg = crawl_stock_info(
                         ['2330', '1584', '2345', '2377', '00642U', '00635U'])

@@ -24,7 +24,7 @@ def crawl_stock_info(stockCodes, isAddName=True):
     return ',\n'.join(result)
 
 
-def crawl_exchage_rate():
+def crawl_exchage_rate(currency):
     response = requests.get('https://portal.sw.nat.gov.tw/APGQO/GC331')
     soup = BeautifulSoup(response.text, "html.parser")
     yearSelected = soup.select_one('#yearList').find(
@@ -33,18 +33,33 @@ def crawl_exchage_rate():
         attrs={"selected": "selected"}).getText()
     tenDaySelected = soup.select_one('#tenDayList').find(
         attrs={"selected": "selected"})['value']
-
     # print(yearSelected, monthSelected, tenDaySelected)
 
-    # now = datetime.datetime.now()
-    # year = str(now.year)
-    # month = '{:02d}'.format(now.month)
+    req_url = 'https://portal.sw.nat.gov.tw/APGQO/GC331!query?formBean.year={}&formBean.mon={}&formBean.tenDay={}'
 
-    req_url = f'https://portal.sw.nat.gov.tw/APGQO/GC331!query?formBean.year={yearSelected}&formBean.mon={monthSelected}&formBean.tenDay={tenDaySelected}'
-    # print(req_url)
-    response = requests.post(req_url).json()
+    response = requests.post(req_url.format(
+        yearSelected, monthSelected, tenDaySelected)).json()
+    cny_list = [x for x in response['data'] if x['CRRN_CD'] in currency]
 
-    cny_list = [x for x in response['data'] if x['CRRN_CD'] in {'CNY', 'USD'}]
+    now = datetime.datetime.now()
+    now_day = now.day
+    ten_day = None
+    if now_day < 11:
+        ten_day = '1'
+    elif now_day < 21:
+        ten_day = '2'
+    elif now_day < 32:
+        ten_day = '3'
+
+    if ten_day != tenDaySelected:
+        year = str(now.year)
+        month = '{:02d}'.format(now.month)
+        response2 = requests.post(req_url.format(year, month, ten_day)).json()
+        cny_list2 = [x for x in response2['data'] if x['CRRN_CD'] in currency]
+        cny_list.extend(cny_list2)
+
+    cny_list.sort(reverse=True, key=lambda x: x['UP_DATE'])
+    cny_list.sort(key=lambda x: x['CRRN_CD'])
 
     result = []
     for info in cny_list:
