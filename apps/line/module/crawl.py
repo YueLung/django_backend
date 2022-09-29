@@ -19,10 +19,10 @@ def crawl_stock_info(stockCodes, isAddName=True):
 
         if isAddName:
             result.append(
-                f'{code} {nameDict[code]}: \n {price}  {changePrice}  {changepercent}\n -------------------')
+                f'{code} {nameDict[code]}: \n {price}  {changePrice}  {changepercent}\n --------------------------')
         else:
             result.append(
-                f'{code}: {price}  {changePrice}  {changepercent}')
+                f'{code}: \n {price}  {changePrice}  {changepercent}\n --------------------------')
 
     return ',\n'.join(result)
 
