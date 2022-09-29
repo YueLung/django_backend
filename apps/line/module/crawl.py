@@ -14,9 +14,12 @@ def crawl_stock_info(stockCodes, isAddName=True):
         changePrice = soup.select_one('.change-net').getText()
         changepercent = soup.select_one('.change-percent').getText()
         name = soup.select_one('.header_second').getText()
+        nameDict = {'2330': '台積', '1584': '精剛', '2345': '智邦',
+                    '2377': '微星', '00642U': '石油', '00635U': '黃金'}
+
         if isAddName:
             result.append(
-                f'{code} {name}: {price}  {changePrice}  {changepercent}')
+                f'{code} {nameDict[code]}: \n {price}  {changePrice}  {changepercent}\n -------------------')
         else:
             result.append(
                 f'{code}: {price}  {changePrice}  {changepercent}')
