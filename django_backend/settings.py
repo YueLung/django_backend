@@ -91,7 +91,7 @@ if DEBUG:
     ]
 else:
     CORS_ALLOWED_ORIGINS += [
-        'https://yuelung-learning.herokuapp.com'
+        'https://yuelung-learning.onrender.com'
     ]
 
 
@@ -117,12 +117,12 @@ WSGI_APPLICATION = 'django_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
