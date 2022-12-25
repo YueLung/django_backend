@@ -35,15 +35,12 @@ LINE_CHANNEL_ACCESS_TOKEN = env('LINE_CHANNEL_ACCESS_TOKEN')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 if DEBUG == False:
     ALLOWED_HOSTS += [
         'lung.pythonanywhere.com',
-        'yuelung-django.herokuapp.com',
-
-        '.vercel.app',
-        '.now.sh'
+        'yuelung-django.herokuapp.com'
     ]
 
 
